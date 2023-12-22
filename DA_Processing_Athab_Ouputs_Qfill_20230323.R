@@ -348,15 +348,15 @@ lines(dates_plot, cumsum(((ctrl_annual_flow[213:365]*(24*3600))/2.93e7)*1000), c
 dev.off()
 
 
-tiff("C:/Users/alb818/Dropbox/PHD/DATA_ASSIMILATION/15_PPTs/Plots/Atha_Var5_Annual_Flow_20230502.tiff",
-     width = 6, height = 4, units = "in", res = 1000, pointsize = 12)
+tiff("C:/Users/alb818/Dropbox/PHD/THESIS/04_DATA_ASSIMILATION/01_Plots_20231026/Atha_Var5_Annual_Flow_20231030.tiff",
+     width = 6, height = 5, units = "in", res = 500, pointsize = 12)
 
 par(mar=c(4,4.3,1,1))
 
-plot(dates_plot, ctrl_annual_flow[213:365], type = 'l', col = 'firebrick2', lwd = 1, ylim = c(0,14), ylab = expression(paste("Streamflow [", m^3*s^-1, "]")), xlab = 'Time [days]')
-legend('topleft', legend = c('Observed', 'Control', 'Data Assimilation'), col = c('black', 'firebrick2', 'royalblue3'), lty = c(1,1,1), lwd = c(1,1,1))
+plot(dates_plot, ctrl_annual_flow[213:365], type = 'l', col = 'red', lwd = 1, ylim = c(0,14), ylab = expression(paste("Streamflow [", m^3*s^-1, "]")), xlab = 'Time [days]')
+legend('topleft', legend = c('Observed', 'Control', 'Data Assimilation'), col = c('black', 'red', 'blue'), lty = c(1,1,1), lwd = c(1,1,1))
 
-lines(dates_plot, da_annual_flow[213:365], col = 'royalblue3', lwd = 1)
+lines(dates_plot, da_annual_flow[213:365], col = 'blue', lwd = 1)
 
 lines(dates_plot, obs_annual_flow[213:365], col = 'black', lwd = 1)
 
@@ -669,15 +669,15 @@ t.test(total_flow_obs, total_flow)
 dates_four_year <- seq(as.POSIXct('2017-10-01', format = '%Y-%m-%d'), as.POSIXct('2021-09-30', format = '%Y-%m-%d'), 'days')
 
 
-tiff("C:/Users/alb818/Dropbox/PHD/DATA_ASSIMILATION/15_PPTs/Plots/Four_year_Athabasca_20230507.tiff",
-     width = 12, height = 4, units = "in", res = 1000, pointsize = 12)
+tiff("C:/Users/alb818/Dropbox/PHD/THESIS/04_DATA_ASSIMILATION/01_Plots_20231026/Four_year_Athabasca_20231030.tiff",
+     width = 8, height = 5, units = "in", res = 500, pointsize = 12)
 
 par(mar=c(4,4.3,1,1))
 
-plot(dates_four_year, streamflow_ctrl_daily[732:2192], type = 'l', col = 'firebrick2', lwd = 1, ylim = c(0,15), ylab = expression(paste("Streamflow [", m^3*s^-1, "]")), xlab = 'Time [days]')
-legend('topleft', legend = c('Observed', 'Control', 'Data Assimilation'), col = c('black', 'firebrick2', 'royalblue3'), lty = c(1,1,1), lwd = c(1,1,1))
+plot(dates_four_year, streamflow_ctrl_daily[732:2192], type = 'l', col = 'red', lwd = 1, ylim = c(0,15), ylab = expression(paste("Streamflow [", m^3*s^-1, "]")), xlab = 'Time [days]')
+legend('topleft', legend = c('Observed', 'CTRL', 'DA'), col = c('black', 'red', 'blue'), lty = c(1,1,1), lwd = c(1,1,1), bty = "n")
 
-lines(dates_four_year, streamflow_daily[732:2192], col = 'royalblue3', lwd = 1)
+lines(dates_four_year, streamflow_daily[732:2192], col = 'blue', lwd = 1)
 
 lines(dates_four_year, obs_streamflow_daily[732:2192], col = 'black', lwd = 1)
 
@@ -693,21 +693,26 @@ round(mean(as.numeric(control_run$V4[which(dates_full == as.POSIXct('2021-05-01 
 round(mean(swe_mean[which(dates_full == as.POSIXct('2021-05-01 00:00:00', format = '%Y-%m-%d %H:%M:%S')):which(dates_full == as.POSIXct('2021-09-30 23:00:00', format = '%Y-%m-%d %H:%M:%S'))]), 1)
 
 
+
 #Ensemble analysis
 
-start_date <- '2020-05-01 00:00:00'
-end_date <- '2020-09-30 23:00:00'
+dates_full <- seq(as.POSIXct('2015-10-01 01:00:00', format = '%Y-%m-%d %H:%M:%S'), as.POSIXct('2021-10-01 00:00:00', format = '%Y-%m-%d %H:%M:%S'), 'hours')
 
-dates_plot_ensemble <- seq(as.POSIXct(start_date, format = '%Y-%m-%d %H:%M:%S'), as.POSIXct(end_date, format = '%Y-%m-%d %H:%M:%S'), 'hours')
+tiff("C:/Users/alb818/Dropbox/PHD/THESIS/04_DATA_ASSIMILATION/01_Plots_20231026/Athabasca_Ensembles_20231030.tiff",
+     width = 7, height = 9, units = "in", res = 500, pointsize = 12)
 
-
-tiff("C:/Users/alb818/Dropbox/PHD/DATA_ASSIMILATION/15_PPTs/Plots/Athab_Ensemble_SWE_2021_20230524.tiff",
-     width = 6, height = 3, units = "in", res = 500, pointsize = 12)
-
+par(mfrow=c(4,2))
 par(mar=c(4,4.3,1,1))
 
 
-plot(dates_plot_ensemble, as.numeric(swe[which(dates_full == as.POSIXct(start_date, format = '%Y-%m-%d %H:%M:%S')):which(dates_full == as.POSIXct(end_date, format = '%Y-%m-%d %H:%M:%S')),1]), type = 'l', col = 'grey', ylim = c(0,360), xlab = 'Time [hours]', ylab = 'SWE [mm]')
+start_date <- '2018-05-01 00:00:00'
+end_date <- '2018-09-30 23:00:00'
+
+dates_plot_ensemble <- seq(as.POSIXct(start_date, format = '%Y-%m-%d %H:%M:%S'), as.POSIXct(end_date, format = '%Y-%m-%d %H:%M:%S'), 'hours')
+
+plot(dates_plot_ensemble, as.numeric(swe[which(dates_full == as.POSIXct(start_date, format = '%Y-%m-%d %H:%M:%S')):which(dates_full == as.POSIXct(end_date, format = '%Y-%m-%d %H:%M:%S')),1]), type = 'l', col = 'grey', ylim = c(0,400), xlab = 'Time [hours]', ylab = 'SWE [mm]')
+legend('topright', legend = c('Emsembles', 'CTRL', 'DA'), col = c('grey', 'red', 'blue'), lty = c(1,1,1), lwd = c(1,1,1), bty = "n")
+
 
 lines(dates_plot_ensemble, as.numeric(swe[which(dates_full == as.POSIXct(start_date, format = '%Y-%m-%d %H:%M:%S')):which(dates_full == as.POSIXct(end_date, format = '%Y-%m-%d %H:%M:%S')),2]), col = 'grey')
 lines(dates_plot_ensemble, as.numeric(swe[which(dates_full == as.POSIXct(start_date, format = '%Y-%m-%d %H:%M:%S')):which(dates_full == as.POSIXct(end_date, format = '%Y-%m-%d %H:%M:%S')),3]), col = 'grey')
@@ -730,19 +735,10 @@ lines(dates_plot_ensemble, as.numeric(swe[which(dates_full == as.POSIXct(start_d
 lines(dates_plot_ensemble, as.numeric(swe[which(dates_full == as.POSIXct(start_date, format = '%Y-%m-%d %H:%M:%S')):which(dates_full == as.POSIXct(end_date, format = '%Y-%m-%d %H:%M:%S')),20]), col = 'grey')
 
 
-lines(dates_plot_ensemble, as.numeric(control_run$V4[which(dates_full == as.POSIXct(start_date, format = '%Y-%m-%d %H:%M:%S')):which(dates_full == as.POSIXct(end_date, format = '%Y-%m-%d %H:%M:%S'))]), col = 'firebrick2')
+lines(dates_plot_ensemble, as.numeric(control_run$V4[which(dates_full == as.POSIXct(start_date, format = '%Y-%m-%d %H:%M:%S')):which(dates_full == as.POSIXct(end_date, format = '%Y-%m-%d %H:%M:%S'))]), col = 'red')
 
-lines(dates_plot_ensemble, as.numeric(swe_mean[which(dates_full == as.POSIXct(start_date, format = '%Y-%m-%d %H:%M:%S')):which(dates_full == as.POSIXct(end_date, format = '%Y-%m-%d %H:%M:%S'))]), col = 'royalblue3')
+lines(dates_plot_ensemble, as.numeric(swe_mean[which(dates_full == as.POSIXct(start_date, format = '%Y-%m-%d %H:%M:%S')):which(dates_full == as.POSIXct(end_date, format = '%Y-%m-%d %H:%M:%S'))]), col = 'blue')
 
-
-dev.off()
-
-
-
-tiff("C:/Users/alb818/Dropbox/PHD/DATA_ASSIMILATION/15_PPTs/Plots/Athab_Ensemble_Alb_2020_20230524.tiff",
-     width = 6, height = 3, units = "in", res = 500, pointsize = 12)
-
-par(mar=c(4,4.3,1,1))
 
 
 plot(dates_plot_ensemble, as.numeric(albedo[which(dates_full == as.POSIXct(start_date, format = '%Y-%m-%d %H:%M:%S')):which(dates_full == as.POSIXct(end_date, format = '%Y-%m-%d %H:%M:%S')),1]), type = 'l', col = 'grey', ylim = c(0,1), xlab = 'Time [hours]', ylab = 'Albedo [ ]')
@@ -768,10 +764,290 @@ lines(dates_plot_ensemble, as.numeric(albedo[which(dates_full == as.POSIXct(star
 lines(dates_plot_ensemble, as.numeric(albedo[which(dates_full == as.POSIXct(start_date, format = '%Y-%m-%d %H:%M:%S')):which(dates_full == as.POSIXct(end_date, format = '%Y-%m-%d %H:%M:%S')),20]), col = 'grey')
 
 
-lines(dates_plot_ensemble, as.numeric(control_run$V3[which(dates_full == as.POSIXct(start_date, format = '%Y-%m-%d %H:%M:%S')):which(dates_full == as.POSIXct(end_date, format = '%Y-%m-%d %H:%M:%S'))]), col = 'firebrick2')
+lines(dates_plot_ensemble, as.numeric(control_run$V3[which(dates_full == as.POSIXct(start_date, format = '%Y-%m-%d %H:%M:%S')):which(dates_full == as.POSIXct(end_date, format = '%Y-%m-%d %H:%M:%S'))]), col = 'red')
 
-lines(dates_plot_ensemble, as.numeric(albedo_mean[which(dates_full == as.POSIXct(start_date, format = '%Y-%m-%d %H:%M:%S')):which(dates_full == as.POSIXct(end_date, format = '%Y-%m-%d %H:%M:%S'))]), col = 'royalblue3')
+lines(dates_plot_ensemble, as.numeric(albedo_mean[which(dates_full == as.POSIXct(start_date, format = '%Y-%m-%d %H:%M:%S')):which(dates_full == as.POSIXct(end_date, format = '%Y-%m-%d %H:%M:%S'))]), col = 'blue')
+
+
+
+start_date <- '2019-05-01 00:00:00'
+end_date <- '2019-09-30 23:00:00'
+
+dates_plot_ensemble <- seq(as.POSIXct(start_date, format = '%Y-%m-%d %H:%M:%S'), as.POSIXct(end_date, format = '%Y-%m-%d %H:%M:%S'), 'hours')
+
+
+plot(dates_plot_ensemble, as.numeric(swe[which(dates_full == as.POSIXct(start_date, format = '%Y-%m-%d %H:%M:%S')):which(dates_full == as.POSIXct(end_date, format = '%Y-%m-%d %H:%M:%S')),1]), type = 'l', col = 'grey', ylim = c(0,400), xlab = 'Time [hours]', ylab = 'SWE [mm]')
+
+lines(dates_plot_ensemble, as.numeric(swe[which(dates_full == as.POSIXct(start_date, format = '%Y-%m-%d %H:%M:%S')):which(dates_full == as.POSIXct(end_date, format = '%Y-%m-%d %H:%M:%S')),2]), col = 'grey')
+lines(dates_plot_ensemble, as.numeric(swe[which(dates_full == as.POSIXct(start_date, format = '%Y-%m-%d %H:%M:%S')):which(dates_full == as.POSIXct(end_date, format = '%Y-%m-%d %H:%M:%S')),3]), col = 'grey')
+lines(dates_plot_ensemble, as.numeric(swe[which(dates_full == as.POSIXct(start_date, format = '%Y-%m-%d %H:%M:%S')):which(dates_full == as.POSIXct(end_date, format = '%Y-%m-%d %H:%M:%S')),4]), col = 'grey')
+lines(dates_plot_ensemble, as.numeric(swe[which(dates_full == as.POSIXct(start_date, format = '%Y-%m-%d %H:%M:%S')):which(dates_full == as.POSIXct(end_date, format = '%Y-%m-%d %H:%M:%S')),5]), col = 'grey')
+lines(dates_plot_ensemble, as.numeric(swe[which(dates_full == as.POSIXct(start_date, format = '%Y-%m-%d %H:%M:%S')):which(dates_full == as.POSIXct(end_date, format = '%Y-%m-%d %H:%M:%S')),6]), col = 'grey')
+lines(dates_plot_ensemble, as.numeric(swe[which(dates_full == as.POSIXct(start_date, format = '%Y-%m-%d %H:%M:%S')):which(dates_full == as.POSIXct(end_date, format = '%Y-%m-%d %H:%M:%S')),7]), col = 'grey')
+lines(dates_plot_ensemble, as.numeric(swe[which(dates_full == as.POSIXct(start_date, format = '%Y-%m-%d %H:%M:%S')):which(dates_full == as.POSIXct(end_date, format = '%Y-%m-%d %H:%M:%S')),8]), col = 'grey')
+lines(dates_plot_ensemble, as.numeric(swe[which(dates_full == as.POSIXct(start_date, format = '%Y-%m-%d %H:%M:%S')):which(dates_full == as.POSIXct(end_date, format = '%Y-%m-%d %H:%M:%S')),9]), col = 'grey')
+lines(dates_plot_ensemble, as.numeric(swe[which(dates_full == as.POSIXct(start_date, format = '%Y-%m-%d %H:%M:%S')):which(dates_full == as.POSIXct(end_date, format = '%Y-%m-%d %H:%M:%S')),10]), col = 'grey')
+lines(dates_plot_ensemble, as.numeric(swe[which(dates_full == as.POSIXct(start_date, format = '%Y-%m-%d %H:%M:%S')):which(dates_full == as.POSIXct(end_date, format = '%Y-%m-%d %H:%M:%S')),11]), col = 'grey')
+lines(dates_plot_ensemble, as.numeric(swe[which(dates_full == as.POSIXct(start_date, format = '%Y-%m-%d %H:%M:%S')):which(dates_full == as.POSIXct(end_date, format = '%Y-%m-%d %H:%M:%S')),12]), col = 'grey')
+lines(dates_plot_ensemble, as.numeric(swe[which(dates_full == as.POSIXct(start_date, format = '%Y-%m-%d %H:%M:%S')):which(dates_full == as.POSIXct(end_date, format = '%Y-%m-%d %H:%M:%S')),13]), col = 'grey')
+lines(dates_plot_ensemble, as.numeric(swe[which(dates_full == as.POSIXct(start_date, format = '%Y-%m-%d %H:%M:%S')):which(dates_full == as.POSIXct(end_date, format = '%Y-%m-%d %H:%M:%S')),14]), col = 'grey')
+lines(dates_plot_ensemble, as.numeric(swe[which(dates_full == as.POSIXct(start_date, format = '%Y-%m-%d %H:%M:%S')):which(dates_full == as.POSIXct(end_date, format = '%Y-%m-%d %H:%M:%S')),15]), col = 'grey')
+lines(dates_plot_ensemble, as.numeric(swe[which(dates_full == as.POSIXct(start_date, format = '%Y-%m-%d %H:%M:%S')):which(dates_full == as.POSIXct(end_date, format = '%Y-%m-%d %H:%M:%S')),16]), col = 'grey')
+lines(dates_plot_ensemble, as.numeric(swe[which(dates_full == as.POSIXct(start_date, format = '%Y-%m-%d %H:%M:%S')):which(dates_full == as.POSIXct(end_date, format = '%Y-%m-%d %H:%M:%S')),17]), col = 'grey')
+lines(dates_plot_ensemble, as.numeric(swe[which(dates_full == as.POSIXct(start_date, format = '%Y-%m-%d %H:%M:%S')):which(dates_full == as.POSIXct(end_date, format = '%Y-%m-%d %H:%M:%S')),18]), col = 'grey')
+lines(dates_plot_ensemble, as.numeric(swe[which(dates_full == as.POSIXct(start_date, format = '%Y-%m-%d %H:%M:%S')):which(dates_full == as.POSIXct(end_date, format = '%Y-%m-%d %H:%M:%S')),19]), col = 'grey')
+lines(dates_plot_ensemble, as.numeric(swe[which(dates_full == as.POSIXct(start_date, format = '%Y-%m-%d %H:%M:%S')):which(dates_full == as.POSIXct(end_date, format = '%Y-%m-%d %H:%M:%S')),20]), col = 'grey')
+
+
+lines(dates_plot_ensemble, as.numeric(control_run$V4[which(dates_full == as.POSIXct(start_date, format = '%Y-%m-%d %H:%M:%S')):which(dates_full == as.POSIXct(end_date, format = '%Y-%m-%d %H:%M:%S'))]), col = 'red')
+
+lines(dates_plot_ensemble, as.numeric(swe_mean[which(dates_full == as.POSIXct(start_date, format = '%Y-%m-%d %H:%M:%S')):which(dates_full == as.POSIXct(end_date, format = '%Y-%m-%d %H:%M:%S'))]), col = 'blue')
+
+
+
+plot(dates_plot_ensemble, as.numeric(albedo[which(dates_full == as.POSIXct(start_date, format = '%Y-%m-%d %H:%M:%S')):which(dates_full == as.POSIXct(end_date, format = '%Y-%m-%d %H:%M:%S')),1]), type = 'l', col = 'grey', ylim = c(0,1), xlab = 'Time [hours]', ylab = 'Albedo [ ]')
+
+lines(dates_plot_ensemble, as.numeric(albedo[which(dates_full == as.POSIXct(start_date, format = '%Y-%m-%d %H:%M:%S')):which(dates_full == as.POSIXct(end_date, format = '%Y-%m-%d %H:%M:%S')),2]), col = 'grey')
+lines(dates_plot_ensemble, as.numeric(albedo[which(dates_full == as.POSIXct(start_date, format = '%Y-%m-%d %H:%M:%S')):which(dates_full == as.POSIXct(end_date, format = '%Y-%m-%d %H:%M:%S')),3]), col = 'grey')
+lines(dates_plot_ensemble, as.numeric(albedo[which(dates_full == as.POSIXct(start_date, format = '%Y-%m-%d %H:%M:%S')):which(dates_full == as.POSIXct(end_date, format = '%Y-%m-%d %H:%M:%S')),4]), col = 'grey')
+lines(dates_plot_ensemble, as.numeric(albedo[which(dates_full == as.POSIXct(start_date, format = '%Y-%m-%d %H:%M:%S')):which(dates_full == as.POSIXct(end_date, format = '%Y-%m-%d %H:%M:%S')),5]), col = 'grey')
+lines(dates_plot_ensemble, as.numeric(albedo[which(dates_full == as.POSIXct(start_date, format = '%Y-%m-%d %H:%M:%S')):which(dates_full == as.POSIXct(end_date, format = '%Y-%m-%d %H:%M:%S')),6]), col = 'grey')
+lines(dates_plot_ensemble, as.numeric(albedo[which(dates_full == as.POSIXct(start_date, format = '%Y-%m-%d %H:%M:%S')):which(dates_full == as.POSIXct(end_date, format = '%Y-%m-%d %H:%M:%S')),7]), col = 'grey')
+lines(dates_plot_ensemble, as.numeric(albedo[which(dates_full == as.POSIXct(start_date, format = '%Y-%m-%d %H:%M:%S')):which(dates_full == as.POSIXct(end_date, format = '%Y-%m-%d %H:%M:%S')),8]), col = 'grey')
+lines(dates_plot_ensemble, as.numeric(albedo[which(dates_full == as.POSIXct(start_date, format = '%Y-%m-%d %H:%M:%S')):which(dates_full == as.POSIXct(end_date, format = '%Y-%m-%d %H:%M:%S')),9]), col = 'grey')
+lines(dates_plot_ensemble, as.numeric(albedo[which(dates_full == as.POSIXct(start_date, format = '%Y-%m-%d %H:%M:%S')):which(dates_full == as.POSIXct(end_date, format = '%Y-%m-%d %H:%M:%S')),10]), col = 'grey')
+lines(dates_plot_ensemble, as.numeric(albedo[which(dates_full == as.POSIXct(start_date, format = '%Y-%m-%d %H:%M:%S')):which(dates_full == as.POSIXct(end_date, format = '%Y-%m-%d %H:%M:%S')),11]), col = 'grey')
+lines(dates_plot_ensemble, as.numeric(albedo[which(dates_full == as.POSIXct(start_date, format = '%Y-%m-%d %H:%M:%S')):which(dates_full == as.POSIXct(end_date, format = '%Y-%m-%d %H:%M:%S')),12]), col = 'grey')
+lines(dates_plot_ensemble, as.numeric(albedo[which(dates_full == as.POSIXct(start_date, format = '%Y-%m-%d %H:%M:%S')):which(dates_full == as.POSIXct(end_date, format = '%Y-%m-%d %H:%M:%S')),13]), col = 'grey')
+lines(dates_plot_ensemble, as.numeric(albedo[which(dates_full == as.POSIXct(start_date, format = '%Y-%m-%d %H:%M:%S')):which(dates_full == as.POSIXct(end_date, format = '%Y-%m-%d %H:%M:%S')),14]), col = 'grey')
+lines(dates_plot_ensemble, as.numeric(albedo[which(dates_full == as.POSIXct(start_date, format = '%Y-%m-%d %H:%M:%S')):which(dates_full == as.POSIXct(end_date, format = '%Y-%m-%d %H:%M:%S')),15]), col = 'grey')
+lines(dates_plot_ensemble, as.numeric(albedo[which(dates_full == as.POSIXct(start_date, format = '%Y-%m-%d %H:%M:%S')):which(dates_full == as.POSIXct(end_date, format = '%Y-%m-%d %H:%M:%S')),16]), col = 'grey')
+lines(dates_plot_ensemble, as.numeric(albedo[which(dates_full == as.POSIXct(start_date, format = '%Y-%m-%d %H:%M:%S')):which(dates_full == as.POSIXct(end_date, format = '%Y-%m-%d %H:%M:%S')),17]), col = 'grey')
+lines(dates_plot_ensemble, as.numeric(albedo[which(dates_full == as.POSIXct(start_date, format = '%Y-%m-%d %H:%M:%S')):which(dates_full == as.POSIXct(end_date, format = '%Y-%m-%d %H:%M:%S')),18]), col = 'grey')
+lines(dates_plot_ensemble, as.numeric(albedo[which(dates_full == as.POSIXct(start_date, format = '%Y-%m-%d %H:%M:%S')):which(dates_full == as.POSIXct(end_date, format = '%Y-%m-%d %H:%M:%S')),19]), col = 'grey')
+lines(dates_plot_ensemble, as.numeric(albedo[which(dates_full == as.POSIXct(start_date, format = '%Y-%m-%d %H:%M:%S')):which(dates_full == as.POSIXct(end_date, format = '%Y-%m-%d %H:%M:%S')),20]), col = 'grey')
+
+
+lines(dates_plot_ensemble, as.numeric(control_run$V3[which(dates_full == as.POSIXct(start_date, format = '%Y-%m-%d %H:%M:%S')):which(dates_full == as.POSIXct(end_date, format = '%Y-%m-%d %H:%M:%S'))]), col = 'red')
+
+lines(dates_plot_ensemble, as.numeric(albedo_mean[which(dates_full == as.POSIXct(start_date, format = '%Y-%m-%d %H:%M:%S')):which(dates_full == as.POSIXct(end_date, format = '%Y-%m-%d %H:%M:%S'))]), col = 'blue')
+
+
+
+start_date <- '2020-05-01 00:00:00'
+end_date <- '2020-09-30 23:00:00'
+
+dates_plot_ensemble <- seq(as.POSIXct(start_date, format = '%Y-%m-%d %H:%M:%S'), as.POSIXct(end_date, format = '%Y-%m-%d %H:%M:%S'), 'hours')
+
+
+plot(dates_plot_ensemble, as.numeric(swe[which(dates_full == as.POSIXct(start_date, format = '%Y-%m-%d %H:%M:%S')):which(dates_full == as.POSIXct(end_date, format = '%Y-%m-%d %H:%M:%S')),1]), type = 'l', col = 'grey', ylim = c(0,400), xlab = 'Time [hours]', ylab = 'SWE [mm]')
+
+lines(dates_plot_ensemble, as.numeric(swe[which(dates_full == as.POSIXct(start_date, format = '%Y-%m-%d %H:%M:%S')):which(dates_full == as.POSIXct(end_date, format = '%Y-%m-%d %H:%M:%S')),2]), col = 'grey')
+lines(dates_plot_ensemble, as.numeric(swe[which(dates_full == as.POSIXct(start_date, format = '%Y-%m-%d %H:%M:%S')):which(dates_full == as.POSIXct(end_date, format = '%Y-%m-%d %H:%M:%S')),3]), col = 'grey')
+lines(dates_plot_ensemble, as.numeric(swe[which(dates_full == as.POSIXct(start_date, format = '%Y-%m-%d %H:%M:%S')):which(dates_full == as.POSIXct(end_date, format = '%Y-%m-%d %H:%M:%S')),4]), col = 'grey')
+lines(dates_plot_ensemble, as.numeric(swe[which(dates_full == as.POSIXct(start_date, format = '%Y-%m-%d %H:%M:%S')):which(dates_full == as.POSIXct(end_date, format = '%Y-%m-%d %H:%M:%S')),5]), col = 'grey')
+lines(dates_plot_ensemble, as.numeric(swe[which(dates_full == as.POSIXct(start_date, format = '%Y-%m-%d %H:%M:%S')):which(dates_full == as.POSIXct(end_date, format = '%Y-%m-%d %H:%M:%S')),6]), col = 'grey')
+lines(dates_plot_ensemble, as.numeric(swe[which(dates_full == as.POSIXct(start_date, format = '%Y-%m-%d %H:%M:%S')):which(dates_full == as.POSIXct(end_date, format = '%Y-%m-%d %H:%M:%S')),7]), col = 'grey')
+lines(dates_plot_ensemble, as.numeric(swe[which(dates_full == as.POSIXct(start_date, format = '%Y-%m-%d %H:%M:%S')):which(dates_full == as.POSIXct(end_date, format = '%Y-%m-%d %H:%M:%S')),8]), col = 'grey')
+lines(dates_plot_ensemble, as.numeric(swe[which(dates_full == as.POSIXct(start_date, format = '%Y-%m-%d %H:%M:%S')):which(dates_full == as.POSIXct(end_date, format = '%Y-%m-%d %H:%M:%S')),9]), col = 'grey')
+lines(dates_plot_ensemble, as.numeric(swe[which(dates_full == as.POSIXct(start_date, format = '%Y-%m-%d %H:%M:%S')):which(dates_full == as.POSIXct(end_date, format = '%Y-%m-%d %H:%M:%S')),10]), col = 'grey')
+lines(dates_plot_ensemble, as.numeric(swe[which(dates_full == as.POSIXct(start_date, format = '%Y-%m-%d %H:%M:%S')):which(dates_full == as.POSIXct(end_date, format = '%Y-%m-%d %H:%M:%S')),11]), col = 'grey')
+lines(dates_plot_ensemble, as.numeric(swe[which(dates_full == as.POSIXct(start_date, format = '%Y-%m-%d %H:%M:%S')):which(dates_full == as.POSIXct(end_date, format = '%Y-%m-%d %H:%M:%S')),12]), col = 'grey')
+lines(dates_plot_ensemble, as.numeric(swe[which(dates_full == as.POSIXct(start_date, format = '%Y-%m-%d %H:%M:%S')):which(dates_full == as.POSIXct(end_date, format = '%Y-%m-%d %H:%M:%S')),13]), col = 'grey')
+lines(dates_plot_ensemble, as.numeric(swe[which(dates_full == as.POSIXct(start_date, format = '%Y-%m-%d %H:%M:%S')):which(dates_full == as.POSIXct(end_date, format = '%Y-%m-%d %H:%M:%S')),14]), col = 'grey')
+lines(dates_plot_ensemble, as.numeric(swe[which(dates_full == as.POSIXct(start_date, format = '%Y-%m-%d %H:%M:%S')):which(dates_full == as.POSIXct(end_date, format = '%Y-%m-%d %H:%M:%S')),15]), col = 'grey')
+lines(dates_plot_ensemble, as.numeric(swe[which(dates_full == as.POSIXct(start_date, format = '%Y-%m-%d %H:%M:%S')):which(dates_full == as.POSIXct(end_date, format = '%Y-%m-%d %H:%M:%S')),16]), col = 'grey')
+lines(dates_plot_ensemble, as.numeric(swe[which(dates_full == as.POSIXct(start_date, format = '%Y-%m-%d %H:%M:%S')):which(dates_full == as.POSIXct(end_date, format = '%Y-%m-%d %H:%M:%S')),17]), col = 'grey')
+lines(dates_plot_ensemble, as.numeric(swe[which(dates_full == as.POSIXct(start_date, format = '%Y-%m-%d %H:%M:%S')):which(dates_full == as.POSIXct(end_date, format = '%Y-%m-%d %H:%M:%S')),18]), col = 'grey')
+lines(dates_plot_ensemble, as.numeric(swe[which(dates_full == as.POSIXct(start_date, format = '%Y-%m-%d %H:%M:%S')):which(dates_full == as.POSIXct(end_date, format = '%Y-%m-%d %H:%M:%S')),19]), col = 'grey')
+lines(dates_plot_ensemble, as.numeric(swe[which(dates_full == as.POSIXct(start_date, format = '%Y-%m-%d %H:%M:%S')):which(dates_full == as.POSIXct(end_date, format = '%Y-%m-%d %H:%M:%S')),20]), col = 'grey')
+
+
+lines(dates_plot_ensemble, as.numeric(control_run$V4[which(dates_full == as.POSIXct(start_date, format = '%Y-%m-%d %H:%M:%S')):which(dates_full == as.POSIXct(end_date, format = '%Y-%m-%d %H:%M:%S'))]), col = 'red')
+
+lines(dates_plot_ensemble, as.numeric(swe_mean[which(dates_full == as.POSIXct(start_date, format = '%Y-%m-%d %H:%M:%S')):which(dates_full == as.POSIXct(end_date, format = '%Y-%m-%d %H:%M:%S'))]), col = 'blue')
+
+
+
+plot(dates_plot_ensemble, as.numeric(albedo[which(dates_full == as.POSIXct(start_date, format = '%Y-%m-%d %H:%M:%S')):which(dates_full == as.POSIXct(end_date, format = '%Y-%m-%d %H:%M:%S')),1]), type = 'l', col = 'grey', ylim = c(0,1), xlab = 'Time [hours]', ylab = 'Albedo [ ]')
+
+lines(dates_plot_ensemble, as.numeric(albedo[which(dates_full == as.POSIXct(start_date, format = '%Y-%m-%d %H:%M:%S')):which(dates_full == as.POSIXct(end_date, format = '%Y-%m-%d %H:%M:%S')),2]), col = 'grey')
+lines(dates_plot_ensemble, as.numeric(albedo[which(dates_full == as.POSIXct(start_date, format = '%Y-%m-%d %H:%M:%S')):which(dates_full == as.POSIXct(end_date, format = '%Y-%m-%d %H:%M:%S')),3]), col = 'grey')
+lines(dates_plot_ensemble, as.numeric(albedo[which(dates_full == as.POSIXct(start_date, format = '%Y-%m-%d %H:%M:%S')):which(dates_full == as.POSIXct(end_date, format = '%Y-%m-%d %H:%M:%S')),4]), col = 'grey')
+lines(dates_plot_ensemble, as.numeric(albedo[which(dates_full == as.POSIXct(start_date, format = '%Y-%m-%d %H:%M:%S')):which(dates_full == as.POSIXct(end_date, format = '%Y-%m-%d %H:%M:%S')),5]), col = 'grey')
+lines(dates_plot_ensemble, as.numeric(albedo[which(dates_full == as.POSIXct(start_date, format = '%Y-%m-%d %H:%M:%S')):which(dates_full == as.POSIXct(end_date, format = '%Y-%m-%d %H:%M:%S')),6]), col = 'grey')
+lines(dates_plot_ensemble, as.numeric(albedo[which(dates_full == as.POSIXct(start_date, format = '%Y-%m-%d %H:%M:%S')):which(dates_full == as.POSIXct(end_date, format = '%Y-%m-%d %H:%M:%S')),7]), col = 'grey')
+lines(dates_plot_ensemble, as.numeric(albedo[which(dates_full == as.POSIXct(start_date, format = '%Y-%m-%d %H:%M:%S')):which(dates_full == as.POSIXct(end_date, format = '%Y-%m-%d %H:%M:%S')),8]), col = 'grey')
+lines(dates_plot_ensemble, as.numeric(albedo[which(dates_full == as.POSIXct(start_date, format = '%Y-%m-%d %H:%M:%S')):which(dates_full == as.POSIXct(end_date, format = '%Y-%m-%d %H:%M:%S')),9]), col = 'grey')
+lines(dates_plot_ensemble, as.numeric(albedo[which(dates_full == as.POSIXct(start_date, format = '%Y-%m-%d %H:%M:%S')):which(dates_full == as.POSIXct(end_date, format = '%Y-%m-%d %H:%M:%S')),10]), col = 'grey')
+lines(dates_plot_ensemble, as.numeric(albedo[which(dates_full == as.POSIXct(start_date, format = '%Y-%m-%d %H:%M:%S')):which(dates_full == as.POSIXct(end_date, format = '%Y-%m-%d %H:%M:%S')),11]), col = 'grey')
+lines(dates_plot_ensemble, as.numeric(albedo[which(dates_full == as.POSIXct(start_date, format = '%Y-%m-%d %H:%M:%S')):which(dates_full == as.POSIXct(end_date, format = '%Y-%m-%d %H:%M:%S')),12]), col = 'grey')
+lines(dates_plot_ensemble, as.numeric(albedo[which(dates_full == as.POSIXct(start_date, format = '%Y-%m-%d %H:%M:%S')):which(dates_full == as.POSIXct(end_date, format = '%Y-%m-%d %H:%M:%S')),13]), col = 'grey')
+lines(dates_plot_ensemble, as.numeric(albedo[which(dates_full == as.POSIXct(start_date, format = '%Y-%m-%d %H:%M:%S')):which(dates_full == as.POSIXct(end_date, format = '%Y-%m-%d %H:%M:%S')),14]), col = 'grey')
+lines(dates_plot_ensemble, as.numeric(albedo[which(dates_full == as.POSIXct(start_date, format = '%Y-%m-%d %H:%M:%S')):which(dates_full == as.POSIXct(end_date, format = '%Y-%m-%d %H:%M:%S')),15]), col = 'grey')
+lines(dates_plot_ensemble, as.numeric(albedo[which(dates_full == as.POSIXct(start_date, format = '%Y-%m-%d %H:%M:%S')):which(dates_full == as.POSIXct(end_date, format = '%Y-%m-%d %H:%M:%S')),16]), col = 'grey')
+lines(dates_plot_ensemble, as.numeric(albedo[which(dates_full == as.POSIXct(start_date, format = '%Y-%m-%d %H:%M:%S')):which(dates_full == as.POSIXct(end_date, format = '%Y-%m-%d %H:%M:%S')),17]), col = 'grey')
+lines(dates_plot_ensemble, as.numeric(albedo[which(dates_full == as.POSIXct(start_date, format = '%Y-%m-%d %H:%M:%S')):which(dates_full == as.POSIXct(end_date, format = '%Y-%m-%d %H:%M:%S')),18]), col = 'grey')
+lines(dates_plot_ensemble, as.numeric(albedo[which(dates_full == as.POSIXct(start_date, format = '%Y-%m-%d %H:%M:%S')):which(dates_full == as.POSIXct(end_date, format = '%Y-%m-%d %H:%M:%S')),19]), col = 'grey')
+lines(dates_plot_ensemble, as.numeric(albedo[which(dates_full == as.POSIXct(start_date, format = '%Y-%m-%d %H:%M:%S')):which(dates_full == as.POSIXct(end_date, format = '%Y-%m-%d %H:%M:%S')),20]), col = 'grey')
+
+
+lines(dates_plot_ensemble, as.numeric(control_run$V3[which(dates_full == as.POSIXct(start_date, format = '%Y-%m-%d %H:%M:%S')):which(dates_full == as.POSIXct(end_date, format = '%Y-%m-%d %H:%M:%S'))]), col = 'red')
+
+lines(dates_plot_ensemble, as.numeric(albedo_mean[which(dates_full == as.POSIXct(start_date, format = '%Y-%m-%d %H:%M:%S')):which(dates_full == as.POSIXct(end_date, format = '%Y-%m-%d %H:%M:%S'))]), col = 'blue')
+
+
+
+start_date <- '2021-05-01 00:00:00'
+end_date <- '2021-09-30 23:00:00'
+
+dates_plot_ensemble <- seq(as.POSIXct(start_date, format = '%Y-%m-%d %H:%M:%S'), as.POSIXct(end_date, format = '%Y-%m-%d %H:%M:%S'), 'hours')
+
+
+plot(dates_plot_ensemble, as.numeric(swe[which(dates_full == as.POSIXct(start_date, format = '%Y-%m-%d %H:%M:%S')):which(dates_full == as.POSIXct(end_date, format = '%Y-%m-%d %H:%M:%S')),1]), type = 'l', col = 'grey', ylim = c(0,400), xlab = 'Time [hours]', ylab = 'SWE [mm]')
+
+lines(dates_plot_ensemble, as.numeric(swe[which(dates_full == as.POSIXct(start_date, format = '%Y-%m-%d %H:%M:%S')):which(dates_full == as.POSIXct(end_date, format = '%Y-%m-%d %H:%M:%S')),2]), col = 'grey')
+lines(dates_plot_ensemble, as.numeric(swe[which(dates_full == as.POSIXct(start_date, format = '%Y-%m-%d %H:%M:%S')):which(dates_full == as.POSIXct(end_date, format = '%Y-%m-%d %H:%M:%S')),3]), col = 'grey')
+lines(dates_plot_ensemble, as.numeric(swe[which(dates_full == as.POSIXct(start_date, format = '%Y-%m-%d %H:%M:%S')):which(dates_full == as.POSIXct(end_date, format = '%Y-%m-%d %H:%M:%S')),4]), col = 'grey')
+lines(dates_plot_ensemble, as.numeric(swe[which(dates_full == as.POSIXct(start_date, format = '%Y-%m-%d %H:%M:%S')):which(dates_full == as.POSIXct(end_date, format = '%Y-%m-%d %H:%M:%S')),5]), col = 'grey')
+lines(dates_plot_ensemble, as.numeric(swe[which(dates_full == as.POSIXct(start_date, format = '%Y-%m-%d %H:%M:%S')):which(dates_full == as.POSIXct(end_date, format = '%Y-%m-%d %H:%M:%S')),6]), col = 'grey')
+lines(dates_plot_ensemble, as.numeric(swe[which(dates_full == as.POSIXct(start_date, format = '%Y-%m-%d %H:%M:%S')):which(dates_full == as.POSIXct(end_date, format = '%Y-%m-%d %H:%M:%S')),7]), col = 'grey')
+lines(dates_plot_ensemble, as.numeric(swe[which(dates_full == as.POSIXct(start_date, format = '%Y-%m-%d %H:%M:%S')):which(dates_full == as.POSIXct(end_date, format = '%Y-%m-%d %H:%M:%S')),8]), col = 'grey')
+lines(dates_plot_ensemble, as.numeric(swe[which(dates_full == as.POSIXct(start_date, format = '%Y-%m-%d %H:%M:%S')):which(dates_full == as.POSIXct(end_date, format = '%Y-%m-%d %H:%M:%S')),9]), col = 'grey')
+lines(dates_plot_ensemble, as.numeric(swe[which(dates_full == as.POSIXct(start_date, format = '%Y-%m-%d %H:%M:%S')):which(dates_full == as.POSIXct(end_date, format = '%Y-%m-%d %H:%M:%S')),10]), col = 'grey')
+lines(dates_plot_ensemble, as.numeric(swe[which(dates_full == as.POSIXct(start_date, format = '%Y-%m-%d %H:%M:%S')):which(dates_full == as.POSIXct(end_date, format = '%Y-%m-%d %H:%M:%S')),11]), col = 'grey')
+lines(dates_plot_ensemble, as.numeric(swe[which(dates_full == as.POSIXct(start_date, format = '%Y-%m-%d %H:%M:%S')):which(dates_full == as.POSIXct(end_date, format = '%Y-%m-%d %H:%M:%S')),12]), col = 'grey')
+lines(dates_plot_ensemble, as.numeric(swe[which(dates_full == as.POSIXct(start_date, format = '%Y-%m-%d %H:%M:%S')):which(dates_full == as.POSIXct(end_date, format = '%Y-%m-%d %H:%M:%S')),13]), col = 'grey')
+lines(dates_plot_ensemble, as.numeric(swe[which(dates_full == as.POSIXct(start_date, format = '%Y-%m-%d %H:%M:%S')):which(dates_full == as.POSIXct(end_date, format = '%Y-%m-%d %H:%M:%S')),14]), col = 'grey')
+lines(dates_plot_ensemble, as.numeric(swe[which(dates_full == as.POSIXct(start_date, format = '%Y-%m-%d %H:%M:%S')):which(dates_full == as.POSIXct(end_date, format = '%Y-%m-%d %H:%M:%S')),15]), col = 'grey')
+lines(dates_plot_ensemble, as.numeric(swe[which(dates_full == as.POSIXct(start_date, format = '%Y-%m-%d %H:%M:%S')):which(dates_full == as.POSIXct(end_date, format = '%Y-%m-%d %H:%M:%S')),16]), col = 'grey')
+lines(dates_plot_ensemble, as.numeric(swe[which(dates_full == as.POSIXct(start_date, format = '%Y-%m-%d %H:%M:%S')):which(dates_full == as.POSIXct(end_date, format = '%Y-%m-%d %H:%M:%S')),17]), col = 'grey')
+lines(dates_plot_ensemble, as.numeric(swe[which(dates_full == as.POSIXct(start_date, format = '%Y-%m-%d %H:%M:%S')):which(dates_full == as.POSIXct(end_date, format = '%Y-%m-%d %H:%M:%S')),18]), col = 'grey')
+lines(dates_plot_ensemble, as.numeric(swe[which(dates_full == as.POSIXct(start_date, format = '%Y-%m-%d %H:%M:%S')):which(dates_full == as.POSIXct(end_date, format = '%Y-%m-%d %H:%M:%S')),19]), col = 'grey')
+lines(dates_plot_ensemble, as.numeric(swe[which(dates_full == as.POSIXct(start_date, format = '%Y-%m-%d %H:%M:%S')):which(dates_full == as.POSIXct(end_date, format = '%Y-%m-%d %H:%M:%S')),20]), col = 'grey')
+
+
+lines(dates_plot_ensemble, as.numeric(control_run$V4[which(dates_full == as.POSIXct(start_date, format = '%Y-%m-%d %H:%M:%S')):which(dates_full == as.POSIXct(end_date, format = '%Y-%m-%d %H:%M:%S'))]), col = 'red')
+
+lines(dates_plot_ensemble, as.numeric(swe_mean[which(dates_full == as.POSIXct(start_date, format = '%Y-%m-%d %H:%M:%S')):which(dates_full == as.POSIXct(end_date, format = '%Y-%m-%d %H:%M:%S'))]), col = 'blue')
+
+
+
+plot(dates_plot_ensemble, as.numeric(albedo[which(dates_full == as.POSIXct(start_date, format = '%Y-%m-%d %H:%M:%S')):which(dates_full == as.POSIXct(end_date, format = '%Y-%m-%d %H:%M:%S')),1]), type = 'l', col = 'grey', ylim = c(0,1), xlab = 'Time [hours]', ylab = 'Albedo [ ]')
+
+lines(dates_plot_ensemble, as.numeric(albedo[which(dates_full == as.POSIXct(start_date, format = '%Y-%m-%d %H:%M:%S')):which(dates_full == as.POSIXct(end_date, format = '%Y-%m-%d %H:%M:%S')),2]), col = 'grey')
+lines(dates_plot_ensemble, as.numeric(albedo[which(dates_full == as.POSIXct(start_date, format = '%Y-%m-%d %H:%M:%S')):which(dates_full == as.POSIXct(end_date, format = '%Y-%m-%d %H:%M:%S')),3]), col = 'grey')
+lines(dates_plot_ensemble, as.numeric(albedo[which(dates_full == as.POSIXct(start_date, format = '%Y-%m-%d %H:%M:%S')):which(dates_full == as.POSIXct(end_date, format = '%Y-%m-%d %H:%M:%S')),4]), col = 'grey')
+lines(dates_plot_ensemble, as.numeric(albedo[which(dates_full == as.POSIXct(start_date, format = '%Y-%m-%d %H:%M:%S')):which(dates_full == as.POSIXct(end_date, format = '%Y-%m-%d %H:%M:%S')),5]), col = 'grey')
+lines(dates_plot_ensemble, as.numeric(albedo[which(dates_full == as.POSIXct(start_date, format = '%Y-%m-%d %H:%M:%S')):which(dates_full == as.POSIXct(end_date, format = '%Y-%m-%d %H:%M:%S')),6]), col = 'grey')
+lines(dates_plot_ensemble, as.numeric(albedo[which(dates_full == as.POSIXct(start_date, format = '%Y-%m-%d %H:%M:%S')):which(dates_full == as.POSIXct(end_date, format = '%Y-%m-%d %H:%M:%S')),7]), col = 'grey')
+lines(dates_plot_ensemble, as.numeric(albedo[which(dates_full == as.POSIXct(start_date, format = '%Y-%m-%d %H:%M:%S')):which(dates_full == as.POSIXct(end_date, format = '%Y-%m-%d %H:%M:%S')),8]), col = 'grey')
+lines(dates_plot_ensemble, as.numeric(albedo[which(dates_full == as.POSIXct(start_date, format = '%Y-%m-%d %H:%M:%S')):which(dates_full == as.POSIXct(end_date, format = '%Y-%m-%d %H:%M:%S')),9]), col = 'grey')
+lines(dates_plot_ensemble, as.numeric(albedo[which(dates_full == as.POSIXct(start_date, format = '%Y-%m-%d %H:%M:%S')):which(dates_full == as.POSIXct(end_date, format = '%Y-%m-%d %H:%M:%S')),10]), col = 'grey')
+lines(dates_plot_ensemble, as.numeric(albedo[which(dates_full == as.POSIXct(start_date, format = '%Y-%m-%d %H:%M:%S')):which(dates_full == as.POSIXct(end_date, format = '%Y-%m-%d %H:%M:%S')),11]), col = 'grey')
+lines(dates_plot_ensemble, as.numeric(albedo[which(dates_full == as.POSIXct(start_date, format = '%Y-%m-%d %H:%M:%S')):which(dates_full == as.POSIXct(end_date, format = '%Y-%m-%d %H:%M:%S')),12]), col = 'grey')
+lines(dates_plot_ensemble, as.numeric(albedo[which(dates_full == as.POSIXct(start_date, format = '%Y-%m-%d %H:%M:%S')):which(dates_full == as.POSIXct(end_date, format = '%Y-%m-%d %H:%M:%S')),13]), col = 'grey')
+lines(dates_plot_ensemble, as.numeric(albedo[which(dates_full == as.POSIXct(start_date, format = '%Y-%m-%d %H:%M:%S')):which(dates_full == as.POSIXct(end_date, format = '%Y-%m-%d %H:%M:%S')),14]), col = 'grey')
+lines(dates_plot_ensemble, as.numeric(albedo[which(dates_full == as.POSIXct(start_date, format = '%Y-%m-%d %H:%M:%S')):which(dates_full == as.POSIXct(end_date, format = '%Y-%m-%d %H:%M:%S')),15]), col = 'grey')
+lines(dates_plot_ensemble, as.numeric(albedo[which(dates_full == as.POSIXct(start_date, format = '%Y-%m-%d %H:%M:%S')):which(dates_full == as.POSIXct(end_date, format = '%Y-%m-%d %H:%M:%S')),16]), col = 'grey')
+lines(dates_plot_ensemble, as.numeric(albedo[which(dates_full == as.POSIXct(start_date, format = '%Y-%m-%d %H:%M:%S')):which(dates_full == as.POSIXct(end_date, format = '%Y-%m-%d %H:%M:%S')),17]), col = 'grey')
+lines(dates_plot_ensemble, as.numeric(albedo[which(dates_full == as.POSIXct(start_date, format = '%Y-%m-%d %H:%M:%S')):which(dates_full == as.POSIXct(end_date, format = '%Y-%m-%d %H:%M:%S')),18]), col = 'grey')
+lines(dates_plot_ensemble, as.numeric(albedo[which(dates_full == as.POSIXct(start_date, format = '%Y-%m-%d %H:%M:%S')):which(dates_full == as.POSIXct(end_date, format = '%Y-%m-%d %H:%M:%S')),19]), col = 'grey')
+lines(dates_plot_ensemble, as.numeric(albedo[which(dates_full == as.POSIXct(start_date, format = '%Y-%m-%d %H:%M:%S')):which(dates_full == as.POSIXct(end_date, format = '%Y-%m-%d %H:%M:%S')),20]), col = 'grey')
+
+
+lines(dates_plot_ensemble, as.numeric(control_run$V3[which(dates_full == as.POSIXct(start_date, format = '%Y-%m-%d %H:%M:%S')):which(dates_full == as.POSIXct(end_date, format = '%Y-%m-%d %H:%M:%S'))]), col = 'red')
+
+lines(dates_plot_ensemble, as.numeric(albedo_mean[which(dates_full == as.POSIXct(start_date, format = '%Y-%m-%d %H:%M:%S')):which(dates_full == as.POSIXct(end_date, format = '%Y-%m-%d %H:%M:%S'))]), col = 'blue')
 
 
 dev.off()
 
+
+
+#Summary box plots
+
+#Albedo analysis
+
+dates_full <- seq(as.POSIXct('2015-10-01 01:00:00', format = '%Y-%m-%d %H:%M:%S'), as.POSIXct('2021-10-01 00:00:00', format = '%Y-%m-%d %H:%M:%S'), 'hours')
+
+
+alb_mon_ctrl <- matrix(nrow = 5, ncol = 4)
+alb_mon_da <- matrix(nrow = 5, ncol = 4)
+swe_mon_ctrl <- matrix(nrow = 5, ncol = 4)
+swe_mon_da <- matrix(nrow = 5, ncol = 4)
+q_mon_ctrl <- matrix(nrow = 5, ncol = 4)
+q_mon_da <- matrix(nrow = 5, ncol = 4)
+
+for (j in 1:4) {
+
+year <- c("2018", "2019", "2020", "2021")
+
+start_date <- c(paste0(year[j],'-05-01 00:00:00'), paste0(year[j],'-06-01 00:00:00'), paste0(year[j],'-07-01 00:00:00'), paste0(year[j],'-08-01 00:00:00'), paste0(year[j],'-09-01 00:00:00'))
+end_date <- c(paste0(year[j],'-05-31 00:00:00'), paste0(year[j],'-06-30 00:00:00'), paste0(year[j],'-07-31 00:00:00'), paste0(year[j],'-08-31 00:00:00'), paste0(year[j],'-09-30 00:00:00'))
+
+  for (i in 1:5) {
+
+  alb_mon_ctrl[i,j] <- round(mean(as.numeric(control_run$V3[which(dates_full == as.POSIXct(start_date[i], format = '%Y-%m-%d %H:%M:%S')):which(dates_full == as.POSIXct(end_date[i], format = '%Y-%m-%d %H:%M:%S'))])), 2)
+  alb_mon_da[i,j] <- round(mean(albedo_mean[which(dates_full == as.POSIXct(start_date[i], format = '%Y-%m-%d %H:%M:%S')):which(dates_full == as.POSIXct(end_date[i], format = '%Y-%m-%d %H:%M:%S'))]), 2)
+
+  swe_mon_ctrl[i,j] <- round(mean(as.numeric(control_run$V4[which(dates_full == as.POSIXct(start_date[i], format = '%Y-%m-%d %H:%M:%S')):which(dates_full == as.POSIXct(end_date[i], format = '%Y-%m-%d %H:%M:%S'))])), 1)
+  swe_mon_da[i,j] <- round(mean(swe_mean[which(dates_full == as.POSIXct(start_date[i], format = '%Y-%m-%d %H:%M:%S')):which(dates_full == as.POSIXct(end_date[i], format = '%Y-%m-%d %H:%M:%S'))]), 1)
+
+  q_mon_ctrl[i,j] <- round(sum(as.numeric(control_run$V2[which(dates_full == as.POSIXct(start_date[i], format = '%Y-%m-%d %H:%M:%S')):which(dates_full == as.POSIXct(end_date[i], format = '%Y-%m-%d %H:%M:%S'))])*((1/2.93e7)*1000)), 1)
+  q_mon_da[i,j] <- round(sum(streamflow_mean[which(dates_full == as.POSIXct(start_date[i], format = '%Y-%m-%d %H:%M:%S')):which(dates_full == as.POSIXct(end_date[i], format = '%Y-%m-%d %H:%M:%S'))]*((3600/2.93e7)*1000)), 1)
+  
+  }
+  
+}
+
+
+tiff("C:/Users/alb818/Dropbox/PHD/THESIS/04_DATA_ASSIMILATION/01_Plots_20231026/Athab_Fluxes_20231026.tiff",
+     width = 5, height = 6, units = "in", res = 500, pointsize = 12)
+
+par(mfrow=c(4,3))
+par(mar=c(3,3,1,1))
+
+
+#2018
+
+barplot(rbind(alb_mon_da[,1], alb_mon_ctrl[,1]), beside = T, col=c("blue","red"), names.arg = c("May", "Jun", "Jul", "Aug", "Sep"), ylab = "[ ]", ylim = c(0,0.85))
+box()
+legend("topleft", c("DA","CTRL"), fill = c("blue","red"), bty = "n")
+barplot(rbind(swe_mon_da[,1], swe_mon_ctrl[,1]), beside = T, col=c("blue","red"), names.arg = c("May", "Jun", "Jul", "Aug", "Sep"), ylab = "[mm]", ylim = c(0,110))
+box()
+barplot(rbind(q_mon_da[,1], q_mon_ctrl[,1]), beside = T, col=c("blue","red"), names.arg = c("May", "Jun", "Jul", "Aug", "Sep"), ylab = "[mm]", ylim = c(0,600))
+box()
+
+
+#2019
+
+barplot(rbind(alb_mon_da[,2], alb_mon_ctrl[,2]), beside = T, col=c("blue","red"), names.arg = c("May", "Jun", "Jul", "Aug", "Sep"), ylab = "[ ]", ylim = c(0,0.85))
+box()
+barplot(rbind(swe_mon_da[,2], swe_mon_ctrl[,2]), beside = T, col=c("blue","red"), names.arg = c("May", "Jun", "Jul", "Aug", "Sep"), ylab = "[mm]", ylim = c(0,110))
+box()
+barplot(rbind(q_mon_da[,2], q_mon_ctrl[,2]), beside = T, col=c("blue","red"), names.arg = c("May", "Jun", "Jul", "Aug", "Sep"), ylab = "[mm]", ylim = c(0,600))
+box()
+
+
+#2020
+
+barplot(rbind(alb_mon_da[,3], alb_mon_ctrl[,3]), beside = T, col=c("blue","red"), names.arg = c("May", "Jun", "Jul", "Aug", "Sep"), ylab = "[ ]", ylim = c(0,0.85))
+box()
+barplot(rbind(swe_mon_da[,3], swe_mon_ctrl[,3]), beside = T, col=c("blue","red"), names.arg = c("May", "Jun", "Jul", "Aug", "Sep"), ylab = "[mm]", ylim = c(0,110))
+box()
+barplot(rbind(q_mon_da[,3], q_mon_ctrl[,3]), beside = T, col=c("blue","red"), names.arg = c("May", "Jun", "Jul", "Aug", "Sep"), ylab = "[mm]", ylim = c(0,600))
+box()
+
+
+#2020
+
+barplot(rbind(alb_mon_da[,4], alb_mon_ctrl[,4]), beside = T, col=c("blue","red"), names.arg = c("May", "Jun", "Jul", "Aug", "Sep"), ylab = "[ ]", ylim = c(0,0.85))
+box()
+barplot(rbind(swe_mon_da[,4], swe_mon_ctrl[,4]), beside = T, col=c("blue","red"), names.arg = c("May", "Jun", "Jul", "Aug", "Sep"), ylab = "[mm]", ylim = c(0,110))
+box()
+barplot(rbind(q_mon_da[,4], q_mon_ctrl[,4]), beside = T, col=c("blue","red"), names.arg = c("May", "Jun", "Jul", "Aug", "Sep"), ylab = "[mm]", ylim = c(0,600))
+box()
+
+
+dev.off()
