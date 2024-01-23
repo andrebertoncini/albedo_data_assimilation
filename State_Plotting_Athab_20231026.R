@@ -1,3 +1,4 @@
+#Code to plot states from CRHM outputs for Athabasca Basin
 
 setwd("C:/Users/alb818/Dropbox/PHD/DATA_ASSIMILATION/17_DA_Athabasca/02_Runs/Run_20")
 
