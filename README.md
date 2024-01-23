@@ -1,0 +1,1 @@
+This GitHub page contains a series of codes to generate albedo estimates from Sentinel-2 imagery with GEE Python API. It also contains codes for albedo data assimilation into the Cold Regions Hydrological Model (CRHM). The codes were setup to work in two glaciarized basins in the Canadian Rockies, Peyto Glacier and Athabasca Glacier Research Basins.
