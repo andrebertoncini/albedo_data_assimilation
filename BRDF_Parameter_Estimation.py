@@ -1,3 +1,5 @@
+#Function to estimate BRDF parameters
+
 import dateutil
 from Py6S import *
 import datetime
