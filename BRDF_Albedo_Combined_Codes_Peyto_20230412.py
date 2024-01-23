@@ -1,4 +1,4 @@
-#Code to correct S2 images with 6S
+#Code to generate Sentinel-2 albedo estimates with GEE Python API for Peyto Basin
 
 #Code to atmospherically correct Sentinel-2 images using 6S through Google Earth Engine
 #From https://github.com/samsammurphy/gee-atmcorr-S2
