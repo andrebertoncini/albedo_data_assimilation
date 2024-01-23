@@ -1,3 +1,5 @@
+#Code to perform albedo data assimilation with the CRHM model for Peyto Basin
+
 library(lubridate)
 library(abind)
 
