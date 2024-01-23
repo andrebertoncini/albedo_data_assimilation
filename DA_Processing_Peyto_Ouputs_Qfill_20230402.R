@@ -1,3 +1,5 @@
+#Code to process data assimilation outputs for Peyto Basin
+
 setwd('C:/Users/alb818/Dropbox/PHD/DATA_ASSIMILATION/20_DA_Peyto/00_Runs/Run_21')
 
 library(zoo)
