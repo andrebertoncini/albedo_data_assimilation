@@ -1,3 +1,5 @@
+#Code to plot states from CRHM outputs for Peyto Basin
+
 library(lubridate)
 library(abind)
 
