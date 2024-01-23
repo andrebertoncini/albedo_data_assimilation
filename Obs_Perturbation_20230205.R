@@ -1,3 +1,5 @@
+#Code to generate meteorological forcing perturbation for data assimilation
+
 library(MASS)
 
 setwd('C:/Users/alb818/Dropbox/PHD/DATA_ASSIMILATION/17_DA_Athabasca/05_Obs_Ensemble_20230205')
