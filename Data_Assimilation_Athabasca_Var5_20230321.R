@@ -1,3 +1,5 @@
+#Code to perform albedo data assimilation with the CRHM model for Athabasca Basin
+
 library(lubridate)
 library(abind)
 
