@@ -1525,34 +1525,6 @@ for l in range(len(dates_int)):
 
       blue_sky_albedo_masked = blue_sky_albedo_masked.updateMask(blue_sky_albedo_masked.gt(0.15))
       
-      
-      #Export albedo without mask
-      
-      #filename = 'Athabasca_blue_sky_albedo_'+dates_python_ymd[l]
-
-      #region = geom.buffer(5000).bounds().getInfo()['coordinates']
-
-      #ee.batch.Export.image.toDrive(image = blue_sky_albedo, 
-      #               description = 'image_export',
-      #               folder ='Athabasca_Export_Images',
-      #               fileNamePrefix = filename,
-      #               region = region,
-      #               scale = 20).start()
-                     
-      
-      #Export masked albedo
-                     
-      #filename = 'Athabasca_blue_sky_albedo_masked_'+dates_python_ymd[l]
-
-      #region = geom.buffer(5000).bounds().getInfo()['coordinates']
-
-      #ee.batch.Export.image.toDrive(image = blue_sky_albedo_masked, 
-      #               description = 'image_export',
-      #               folder ='Athabasca_Export_Images',
-      #               fileNamePrefix = filename,
-      #               region = region,
-      #               scale = 20).start()
-
 
       #Extract albedo for given coordinates
 
@@ -1783,17 +1755,17 @@ for l in range(len(dates_int)):
 
 #Write timeseries to file
 
-np.savetxt("/media/project/abertoncini/03_Data_Assimilation/03_Albedo_Outputs/Dates_Athabasca_20230415.csv", dates_python_ymd, delimiter = ",", fmt='%s')
+np.savetxt("Path to output folder/Dates_Athabasca.csv", dates_python_ymd, delimiter = ",", fmt='%s')
 
-np.savetxt("/media/project/abertoncini/03_Data_Assimilation/03_Albedo_Outputs/HRU_Snow_Albedo_Athabasca_20230415.csv", albedo_timeseries, delimiter = ",", fmt='%s')
+np.savetxt("Path to output folder/HRU_Snow_Albedo_Athabasca.csv", albedo_timeseries, delimiter = ",", fmt='%s')
 
-np.savetxt("/media/project/abertoncini/03_Data_Assimilation/03_Albedo_Outputs/HRU_Total_Albedo_Athabasca_20230415.csv", albedo_total_timeseries, delimiter = ",", fmt='%s')
+np.savetxt("Path to output folder/HRU_Total_Albedo_Athabasca.csv", albedo_total_timeseries, delimiter = ",", fmt='%s')
 
-np.savetxt("/media/project/abertoncini/03_Data_Assimilation/03_Albedo_Outputs/HRU_SCA_Athabasca_20230415.csv", sca_timeseries, delimiter = ",", fmt='%s')
+np.savetxt("Path to output folder/HRU_SCA_Athabasca.csv", sca_timeseries, delimiter = ",", fmt='%s')
 
-np.savetxt("/media/project/abertoncini/03_Data_Assimilation/03_Albedo_Outputs/HRU_Perc_Athabasca_20230415.csv", hru_perc_timeseries, delimiter = ",", fmt='%s')
+np.savetxt("Path to output folder/HRU_Perc_Athabasca.csv", hru_perc_timeseries, delimiter = ",", fmt='%s')
 
-np.savetxt("/media/project/abertoncini/03_Data_Assimilation/03_Albedo_Outputs/Station_Albedo_Athabasca_20230415.csv", albedo_timeseries_st, delimiter = ",", fmt='%s')
+np.savetxt("Path to output folder/Station_Albedo_Athabasca.csv", albedo_timeseries_st, delimiter = ",", fmt='%s')
 
-np.savetxt("/media/project/abertoncini/03_Data_Assimilation/03_Albedo_Outputs/Athabasca_AN_Ratios_20230415.csv", multipliers_export, delimiter = ",", fmt='%s')
+np.savetxt("Path to output folder/Athabasca_AN_Ratios.csv", multipliers_export, delimiter = ",", fmt='%s')
 
