@@ -4,7 +4,7 @@ library(lubridate)
 library(abind)
 
 
-setwd('Path to DA model runs with streamflow gaps')
+setwd('Path to folder to save filled streamflow simulations') #need to move states with streamflow gaps into this folder before running the code below
 
 
 dates_rs <- read.csv('Path to remote sensing dates/Dates_Peyto.csv', header = F)[-c(4,14,15,25,36,37),] #-c() excludes dates outside the May to September period
