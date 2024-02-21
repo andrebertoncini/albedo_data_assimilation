@@ -4,7 +4,7 @@ library(lubridate)
 library(abind)
 
 
-setwd('Path to DA model runs with streamflow gaps')
+setwd('Path to folder to save filled streamflow simulations') #need to move states with streamflow gaps into this folder before running the code below
 
 
 exclusion_dates <- c(11:13, 27:29, 31:37, 47:50, 67:73, 90:91) #dates outside the May to September period
