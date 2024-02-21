@@ -4,12 +4,13 @@ library(lubridate)
 library(abind)
 
 
-setwd('C:/Users/alb818/Dropbox/PHD/DATA_ASSIMILATION/17_DA_Athabasca/02_Runs/Run_20')
-
-exclusion_dates <- c(11:13, 27:29, 31:37, 47:50, 67:73, 90:91)
+setwd('Path to DA model runs with streamflow gaps')
 
 
-dates_rs <- read.csv('C:/Users/alb818/Dropbox/PHD/DATA_ASSIMILATION/17_DA_Athabasca/04_RS_Albedo/Dates_Athabasca_20230415.csv', header = F)[-c(exclusion_dates),]
+exclusion_dates <- c(11:13, 27:29, 31:37, 47:50, 67:73, 90:91) #dates outside the May to September period
+
+
+dates_rs <- read.csv('Path to remote sensing dates/Dates_Athabasca.csv', header = F)[-c(exclusion_dates),]
 
 ending_time <- c(as.POSIXct(dates_rs, format = '%Y-%m-%d') + hours(24), as.POSIXct('2021-10-01 00:00:00', format = '%Y-%m-%d %H:%M:%S'))
 
@@ -269,5 +270,4 @@ for (j in 2:69) {
   
   
 }
-
 
