@@ -2,9 +2,9 @@
 
 library(MASS)
 
-setwd('C:/Users/alb818/Dropbox/PHD/DATA_ASSIMILATION/17_DA_Athabasca/05_Obs_Ensemble_20230205')
+setwd('Path to observation forcing files to be perturbed')
 
-orig_obs <- read.table('AthabascaGlacierMoraine_1Oct2014_30Sept2021_merge_hourly_t,rh,u,Qsi,Qli,p.obs', sep = '', dec = '.', skip = 9)
+orig_obs <- read.table('AthabascaGlacierMoraine_1Oct2014_30Sept2021_merge_hourly_t,rh,u,Qsi,Qli,p.obs', sep = '', dec = '.', skip = 9) #Observation forcing file available on this Github page
 
 
 ta_orig <- orig_obs$V6[8760:61368]
