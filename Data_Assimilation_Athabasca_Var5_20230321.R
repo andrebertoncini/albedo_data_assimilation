@@ -4,12 +4,12 @@ library(lubridate)
 library(abind)
 
 
-setwd('C:/Users/alb818/Dropbox/PHD/DATA_ASSIMILATION/17_DA_Athabasca/02_Runs/Run_19')
+setwd('Path to model DA runs')
 
-exclusion_dates <- c(11:13, 27:29, 31:37, 47:50, 67:73, 90:91)
+exclusion_dates <- c(11:13, 27:29, 31:37, 47:50, 67:73, 90:91) #dates outside the May to September period
 
 
-dates_rs <- read.csv('C:/Users/alb818/Dropbox/PHD/DATA_ASSIMILATION/17_DA_Athabasca/04_RS_Albedo/Dates_Athabasca_20230415.csv', header = F)[-c(exclusion_dates),]
+dates_rs <- read.csv('Path to remote sensing dates/Dates_Athabasca.csv', header = F)[-c(exclusion_dates),]
 
 ending_time <- c(as.POSIXct(dates_rs, format = '%Y-%m-%d') + hours(24), as.POSIXct('2021-10-01 00:00:00', format = '%Y-%m-%d %H:%M:%S'))
 
@@ -676,13 +676,13 @@ for (j in 2:69) {
   
   #Calculate observation error
   
-  athabasca_eval <- read.csv('C:/Users/alb818/Dropbox/PHD/DATA_ASSIMILATION/14_Tables/Athabasca_Stations_Eval_20230416.csv', sep = ';')
+  athabasca_eval <- read.csv('Path to albedo remote sensing evaluation data/File.csv', sep = ';')
   
   reg_model <- summary(lm(athabasca_eval$obs ~ athabasca_eval$rs))
   
   R = round(reg_model$sigma, 2)
   
-  albedo_rs <- read.csv('C:/Users/alb818/Dropbox/PHD/DATA_ASSIMILATION/17_DA_Athabasca/04_RS_Albedo/HRU_Snow_Albedo_Athabasca_20230415.csv', header = F)[-c(exclusion_dates),]
+  albedo_rs <- read.csv('Path to remote sensing albedo/HRU_Snow_Albedo_Athabasca.csv', header = F)[-c(exclusion_dates),]
   
   albedo_rs <- ifelse(as.matrix(albedo_rs) == -9999, NA, as.matrix(albedo_rs)) 
   
@@ -1553,5 +1553,4 @@ for (j in 2:69) {
   
   
 }
-
 
