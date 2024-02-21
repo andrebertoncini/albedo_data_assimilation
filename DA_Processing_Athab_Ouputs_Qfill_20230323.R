@@ -329,7 +329,7 @@ round(kge_ctrl, 2)
 
 #Albedo RS Evaluation
 
-athabasca_eval <- read.csv('C:/Users/alb818/Dropbox/PHD/DATA_ASSIMILATION/14_Tables/Athabasca_Stations_Eval_20230416.csv', sep = ';')
+athabasca_eval <- read.csv('Path to albedo remote sensing evaluation data/File.csv', sep = ';')
 
 reg_model <- summary(lm(athabasca_eval$obs ~ athabasca_eval$rs))
 
@@ -351,7 +351,7 @@ round(sqrt(mean((athabasca_eval$rs - athabasca_eval$obs)^2)), 3)
 round(reg_model$sigma, 3)
 
 
-tiff("C:/Users/alb818/Dropbox/PHD/DATA_ASSIMILATION/15_PPTs/Plots/Albedo_Eval_Athabasca_20230416.tiff",
+tiff("Path to export plot/remote sensing albedo evaluation plot filename.tiff",
      width = 4.5, height = 4, units = "in", res = 1000, pointsize = 12)
 
 par(mar=c(4,4,1,1))
@@ -369,7 +369,7 @@ dev.off()
 dates_four_year <- seq(as.POSIXct('2017-10-01', format = '%Y-%m-%d'), as.POSIXct('2021-09-30', format = '%Y-%m-%d'), 'days')
 
 
-tiff("C:/Users/alb818/Dropbox/PHD/THESIS/04_DATA_ASSIMILATION/01_Plots_20231026/Four_year_Athabasca_20231030.tiff",
+tiff("Path to export plot/Four year streamflow plot filename.tiff",
      width = 8, height = 5, units = "in", res = 500, pointsize = 12)
 
 par(mar=c(4,4.3,1,1))
@@ -388,8 +388,7 @@ dev.off()
 
 dates_full <- seq(as.POSIXct('2015-10-01 01:00:00', format = '%Y-%m-%d %H:%M:%S'), as.POSIXct('2021-10-01 00:00:00', format = '%Y-%m-%d %H:%M:%S'), 'hours')
 
-tiff("C:/Users/alb818/Dropbox/PHD/THESIS/04_DATA_ASSIMILATION/01_Plots_20231026/Athabasca_Ensembles_20231030.tiff",
-     width = 7, height = 9, units = "in", res = 500, pointsize = 12)
+tiff("Path to export plot/Ensemble plots filename.tiff", width = 7, height = 9, units = "in", res = 500, pointsize = 12)
 
 par(mfrow=c(4,2))
 par(mar=c(4,4.3,1,1))
